@@ -55,9 +55,8 @@ then
 fi
 ```
 Потом сделаем этот файл исполняемым с помощью команды ```sudo chmod +x /usr/share/libpam-script/pam_script_acct```. 
-И затем добавляем записи в файл ```/etc/pam.d/sshd```
+И затем добавляем запись в файл ```/etc/pam.d/sshd```
 ```bash
-#account    required     pam_time.so
 account    required     pam_script.so
 ```
 
