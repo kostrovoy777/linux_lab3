@@ -1,39 +1,39 @@
 # linux_lab3
 ## 1.a Создать нескольких пользователей, задать им пароли, домашние директории и шеллы;
-Для создания новых пользователей используем команду sudo useradd ```-d /home/Dirname -s /path/to/shell Username```. И задаем пароль с помощью ```sudo passwd Username```. Результат:
+Для создания новых пользователей используем команду sudo useradd `-d /home/Dirname -s /path/to/shell Username`. И задаем пароль с помощью `sudo passwd Username`. Результат:
 ```bash
-sudo -d /home/Nikita -s /bin/bash Nikita
-sudo -d /home/Evgen -s /bin/bash Evgen
-sudo -d /home/Ed -s /bin/bash Ed
-sudo passwd Nikita
+$ sudo -d /home/Nikita -s /bin/bash Nikita
+$ sudo -d /home/Evgen -s /bin/bash Evgen
+$ sudo -d /home/Ed -s /bin/bash Ed
+$ sudo passwd Nikita
 Введите новый пароль UNIX:
 Повторите ввод нового пароля UNIX:
 passwd: пароль успешно обновлен
-sudo passwd Evgen
+$ sudo passwd Evgen
 Введите новый пароль UNIX:
 Повторите ввод нового пароля UNIX:
 passwd: пароль успешно обновлен
-sudo passwd Ed
+$ sudo passwd Ed
 Введите новый пароль UNIX:
 Повторите ввод нового пароля UNIX:
 passwd: пароль успешно обновлен
 ```
 ## 1.б Создать группу admin;
-Для создания группы используем простую команду ```sudo groupadd admin```
+Для создания группы используем простую команду `sudo groupadd admin`
 
 ## 1.в. Включить нескольких из ранее созданных пользователей, а также пользователя root, в группу admin;
-Добавим пользователей в группу с помощью команды ```sudo usermod -aG admin Username```, и проверим добавилось ли с помощью команды ```id```
+Добавим пользователей в группу с помощью команды `sudo usermod -aG admin Username`, и проверим добавилось ли с помощью команды `id`
 ```bash
-sudo usermod -aG admin Nikita
-sudo usermod -aG admin Evgen
-sudo usermod -aG admin root
-id Nikita
+$ sudo usermod -aG admin Nikita
+$ sudo usermod -aG admin Evgen
+$ sudo usermod -aG admin root
+$ id Nikita
 uid=1001(Nikita) gid=1001(Nikita) группы=1001(Nikita),1005(admin)
 ```
 ## 1.г. Запретить всем пользователям, кроме группы admin, логин в систему по SSH в выходные дни (суббота и воскресенье, без учета праздников).
-Для начала установим PAM ```sudo apt install libpam-script```. Далее создадим файл ```/usr/share/libpam-script/pam_script_acct```, с таким кодом:
+Для начала установим PAM `sudo apt install libpam-script`. Далее создадим файл `/usr/share/libpam-script/pam_script_acct`, с таким кодом:
 ```bash
-#!bin/bash
+#!/bin/bash
 script="$1"
 shift
 
@@ -112,7 +112,7 @@ andry@andry-VirtualBox:~$
 ```
 
 ## 2. Установить docker; дать конкретному пользователю права работать с docker
-Докер у меня на системе был установлен до этого, так что мне не пришлось его заново. При попытке использования докера пользователем не добавленным в его группу будет отказ. Добавить пользователя в группу докера можно так же как и в группу admin: ```sudo usermod -aG docker Nikita```. Проверим работоспособность
+Докер у меня на системе был установлен до этого, так что мне не пришлось его заново. При попытке использования докера пользователем не добавленным в его группу будет отказ. Добавить пользователя в группу докера можно так же как и в группу admin: `sudo usermod -aG docker Nikita`. Проверим работоспособность
 ```
 Nikita@andry-VirtualBox:/$ docker ps -a
 CONTAINER ID   IMAGE                                   COMMAND                  CREATED        STATUS                      PORTS     NAMES
